@@ -1,0 +1,85 @@
+//classDataArray
+//data items as class objects
+
+#include <iostream>
+#include <string>
+#include <vector>
+
+using namespace std;
+
+class Person{
+
+private:
+  string lastName;
+  string firstName;
+  int age;
+
+public:
+
+  //constructor
+  Person(string last, string first, int a) :
+    lastName(last), firstName(first), age(a)
+  {}
+
+  // display person info
+  void display(){
+    cout << "   Last name: " << lastName;
+    cout << ", First name: " << firstName;
+    cout << ", Age: " << age << endl;
+  }
+
+  // get last name 
+  string getLast(){
+    return lastName;
+  }
+};
+
+////////////////////////////////////////////////////////
+class ClassDataArray{
+
+private:
+  vector<Person*> v; // array of pointers
+  int nElems;
+
+public:
+
+  // constructor
+  ClassDataArray(int max) : nElems(0){
+    v.resize(max);
+  }
+
+  // destructor
+  ~ClassDataArray(){
+    for (int i=0; i<nElems; i++)        // delete each element
+      delete v[i];
+  }
+
+  // find specified value
+  Person* find(string searchName){
+    int i;
+    for (i=0; i<nElems; i++)        // for each element
+      if (v[i]->getLast() == searchName)    // found element?
+	break;
+    if (i == nElems)                // made it to the end?
+      return NULL;                  // yep it isnt there
+    else
+      return v[i];                  // found it
+  }
+
+  // put person into array
+  void insert(string last, string first, int age){
+    v[nElems] = new Person(last, first, age);
+    nElems++;        // increment size
+  }
+
+  // looks for person and deletes them if found
+  bool remove(string searchName){
+    int i;
+    for (i=0; i<nElems; i++)        // look for it
+     if (v[i]->getLast() == searchName){
+       break;
+     }
+    if () {
+    }
+  }
+};
